@@ -1,16 +1,22 @@
 import requests
-from flask import Flask,render_template,json
+from flask import Flask,render_template,json,config
 from flask_sqlalchemy import SQLAlchemy
 
 app=Flask(__name__)
 app.config['DEBUG']=True
+app.config['SQLAlCHEMY_DATABASE_URI']='sqlite:///showing.db'
+
 
 '''let us make a data base for multiple cities, we will use SQLAlchemy function of flask  '''
 db= SQLAlchemy(app)
 
 class City(db.Model):
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(50),nullable=False)
+    name=db.Column(db.String(50),unique=True,nullable=False)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
 
 @app.route('/weather_info', methods=['GET','POST'])
