@@ -35,7 +35,9 @@ def weather_info():
            'icon':r['weather'][0]['icon'],
 
         }
-        return render_template('weather.html',weather_data=weather_data)
+        weather_data.append(weather)
+
+    return render_template('weather.html',weather_data=weather_data)
 
 
 
