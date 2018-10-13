@@ -32,7 +32,9 @@ def weather_info():
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=532c9007b961c01a0ab55a56f575b8fe'
     weather_data=[]
     for city in cities:
+
         r = requests.get(url.format(city.name)).json()
+        print(r)
         weather={
            'city': city.name,
            'temperature': r['main']['temp'],
