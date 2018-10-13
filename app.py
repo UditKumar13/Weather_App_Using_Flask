@@ -8,8 +8,8 @@ app.config['DEBUG']=True
 '''let us make a data base for multiple cities, we will use SQLAlchemy function of flask  '''
 db= SQLAlchemy(app)
 
-class City(db.model):
-    id=db.Column(db.Integer,nullable=False)
+class City(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(50),nullable=False)
 
 
@@ -19,7 +19,7 @@ def weather_info():
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=532c9007b961c01a0ab55a56f575b8fe'
     weather_data=[]
     for city in cities:
-        r=requests.get(url.format(city)).json()
+        r=requests.get(url.format(city.name)).json()
         weather={
            'city': city,
            'temperature':r["main"]['temp'],
@@ -28,7 +28,7 @@ def weather_info():
            'icon':r['weather'][0]['icon'],
 
         }
-        return render_template('weather.html',weather=weather_data)
+        return render_template('weather.html',weather_data=weather_data)
 
 
 
