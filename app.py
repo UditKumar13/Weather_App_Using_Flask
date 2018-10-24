@@ -42,7 +42,7 @@ def weather_info():
            'description': r['weather'][0]['description'],
            'icon': r['weather'][0]['icon'],
         }
-        weather_data.append(weather)
+        weather_data.append(weathers)
 
     return render_template('weather.html',weather_data=weather_data)
 
