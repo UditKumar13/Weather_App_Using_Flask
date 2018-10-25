@@ -27,17 +27,15 @@ def weather_info():
             new_city_obj=City(name=new_city)
             db.session.add(new_city_obj)
             db.session.commit()
-
-    cities=City.query.all()
+    cities = City.query.all()
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=532c9007b961c01a0ab55a56f575b8fe'
     weather_data=[]
     for city in cities:
-
         r = requests.get(url.format(city.name)).json()
         print(r)
         weather={
            'city': city.name,
-           'temperature': r['main']['temp'],
+           'temperature' : r["main"]["temp"],
            'humidity': r['main']['humidity'],
            'description': r['weather'][0]['description'],
            'icon': r['weather'][0]['icon'],
